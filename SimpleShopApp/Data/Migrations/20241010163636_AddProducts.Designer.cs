@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleShopApp.Data;
 
@@ -11,9 +12,11 @@ using SimpleShopApp.Data;
 namespace SimpleShopApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241010163636_AddProducts")]
+    partial class AddProducts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,70 +227,6 @@ namespace SimpleShopApp.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("SimpleShopApp.Data.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Smartphones"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Sport"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Fashion"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Home & Garden"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Speakers"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Toys & Hobbies"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "Musical Instruments"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Name = "Headphones"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Name = "Other"
-                        });
-                });
-
             modelBuilder.Entity("SimpleShopApp.Data.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -296,16 +235,11 @@ namespace SimpleShopApp.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Discount")
                         .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -320,55 +254,7 @@ namespace SimpleShopApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 1,
-                            Description = "The Most Innovative Lineup Yet\r\n\r\niPhone 16 and iPhone 16 Plus are built for Apple Intelligence, and feature Camera Control, the Action button, a 48MP Fusion camera, and the A18 chip. Camera Control makes it even easier to capture memories on iPhone 16 Pro and iPhone 16.",
-                            Discount = 0,
-                            ImageUrl = "https://my-apple.com.ua/image/catalog/products/iphone/iphone-16-pro-16-pro-max/desert-titanium-1.png",
-                            Name = "iPhone 16 Pro",
-                            Price = 1199m,
-                            Quantity = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CategoryId = 5,
-                            Description = "Emberton II delivers sound that is rich, clear and loud, like the artist intended. Experience absolute 360° sound with True Stereophonic, a unique form of multi-directional sound fromMarshall – where every spot is a sweet spot. Emberton II offers 30+ hours of portable playtime on a single charge.",
-                            Discount = 15,
-                            ImageUrl = "https://www.marshall.com.ua/components/com_jshopping/files/img_products/full_marshall-emberton-ii-cream_detail02.jpg",
-                            Name = "Marshall Emberton II",
-                            Price = 159m,
-                            Quantity = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CategoryId = 8,
-                            Description = "AirPods Max are wireless Bluetooth over-ear headphones designed by Apple, and released on December 15, 2020. They are Apple's highest-end option in the AirPods lineup, sold alongside the base model AirPods and mid-range AirPods Pro.\r\n\r\nThe main changes of the AirPods Max over the mid-range AirPods Pro are the over-ear design with larger speakers, inclusion of Apple's Digital Crown (found on the Apple Watch), more color options, and longer battery life.",
-                            Discount = 0,
-                            ImageUrl = "https://skay.ua/109669-thickbox_default/besprovodnye-naushniki-apple-airpods-max-pink-mgym3.jpg",
-                            Name = "AirPods Max",
-                            Price = 499m,
-                            Quantity = 35
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CategoryId = 1,
-                            Description = "Redmi Note 13's display has been optimized for improved touch recognition and control, preventing accidental triggers from water. With MIUI exclusive optimization, Redmi Note 13 has also passed extensive testing to ensure minimal software aging and slowdowns, even after 48 months of use*.",
-                            Discount = 10,
-                            ImageUrl = "https://content1.rozetka.com.ua/goods/images/big/428176969.jpg",
-                            Name = "Xiaomi Redmi Note 13",
-                            Price = 359m,
-                            Quantity = 1
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -420,22 +306,6 @@ namespace SimpleShopApp.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("SimpleShopApp.Data.Product", b =>
-                {
-                    b.HasOne("SimpleShopApp.Data.Category", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("SimpleShopApp.Data.Category", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

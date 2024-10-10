@@ -1,17 +1,27 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model List<Product>;
 
 <div class="text-center">
     <h1 class="display-4">Product Catalog</h1>
     <p>Find the best product for you!</p>
 
-    <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">
+                            @item.Price$ - Available: @item.Quantity
+                            <br />
+                            @item.Category?.Name
+                        </p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
+
 </div>
