@@ -49,7 +49,7 @@ namespace SimpleShopApp.Controllers
             return RedirectToAction("Manage");
         }
 
-        //[Authorize("Admin")]
+        [Authorize(Roles ="Admin")]
         public IActionResult Delete(int id)
         {
             var item = context.Products.Find(id);
